@@ -12,6 +12,12 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+
+		self.assertIn(row_text, [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrive_it_later(self):
 		#Edyta dowiedziała się o nowej, wspaniałej aplikacji w postaci listy rzeczy do zrobienia.
 		#Postanowiła więc przejść na stronę główną tej aplikacji.
@@ -46,10 +52,8 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('Użyć pawich piór do zrobienia przynęty')
 		inputbox.send_keys(Keys.ENTER)
 		#Strona została ponownie uaktualniona i teraz wyświetla dwa elelementy na liście rzeczy do zrobienia.
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Kupić pawie pióra', [row.text for row in rows])
-		self.assertIn('2: Użyć pawich piór fo zrobienia przynęty', [row.text for row in rows])
+		self.check_for_row_in_list_table('1: Kupić pawie pióra')
+		self.check_for_row_in_list_table('2: Użyć pawich piór do zrobienia przynęty')
 		#Edyta była ciekwawa, czy witryna zapamięta jej listę. Zwróciła uwagę na wygenerowany dla niej unikatowy adres URL, obok którego znajduje się pewien tekst z wyjaśnieniem
 		self.fail('Zakończenie testu!')
 

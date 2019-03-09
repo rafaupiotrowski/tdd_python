@@ -27,7 +27,7 @@ class NewVisitorTest(LiveServerTestCase):
 		#Zwróciła uwagę, że tytuł strony i nagłówek zawierają słowo Listy.
 		self.assertIn('Listy', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
-		self.assertIn('lista', header_text)
+		self.assertIn('listę', header_text)
 
 		#Od razu zostaje zachęcona, aby wpisać rzecz do zrobienia.
 		inputbox = self.browser.find_element_by_id('id_new_item')
@@ -45,7 +45,7 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox.send_keys(Keys.ENTER)
 		edith_list_url = self.browser.current_url
 		self.assertRegex(edith_list_url, '/lists/.+')
-		self.check_for_row-in_list_table('1:Kupić pawie pióra')
+		self.check_for_row_in_list_table('1: Kupić pawie pióra')
 		
 		#Na stronie nadal znajduje się pole tekstowe zachęcające do podania kolejnego zadania.
 		#Edyta wpisała 'Użyć pawich piór do zrobienia przynęty' (Edyta jest niezwykle skrupulatna).
@@ -65,7 +65,7 @@ class NewVisitorTest(LiveServerTestCase):
 		#Franek odwiedza stronę główną.
 		#Nie znajduje żadnych śladów listy Edyty.
 		self.browser.get(self.live_server_url)
-		page_text = self.browser.find_element_ty_tag_name('body').text
+		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Kupić pawie pióra', page_text)
 		self.assertNotIn('zrobienie przynęty', page_text)
 
@@ -78,7 +78,7 @@ class NewVisitorTest(LiveServerTestCase):
 		#Franek otrzymuje unikatowy adres URL prowadzący do listy.
 		francis_list_url = self.browser.current_url
 		self.assertRegex(francis_list_url, '/lists/.+')
-		sefl.assertNotEqual(francis_list_url, edith_list_url)
+		self.assertNotEqual(francis_list_url, edith_list_url)
 
 		#Ponownie nie ma żadnego śladu po liście Edyty.
 		page_text = self.browser.find_element_by_tag_name('body').text

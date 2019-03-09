@@ -43,10 +43,10 @@ class NewVisitorTest(LiveServerTestCase):
 		#Po naciśnięciu klawisza Enter strona została uaktulaniona i wyświetla
 		#'1: Kupić pawie pióra' jako element listy rzeczy do zrobienia.
 		inputbox.send_keys(Keys.ENTER)
-
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Kupić pawie pióra', [row.text for row in rows])
+		edith_list_url = self.browser.current_url
+		self.assertRegex(edith_list_url, '/lists/.+')
+		self.check_for_row-in_list_table('1:Kupić pawie pióra')
+		
 		#Na stronie nadal znajduje się pole tekstowe zachęcające do podania kolejnego zadania.
 		#Edyta wpisała 'Użyć pawich piór do zrobienia przynęty' (Edyta jest niezwykle skrupulatna).
 		inputbox = self.browser.find_element_by_id('id_new_item')
@@ -55,7 +55,38 @@ class NewVisitorTest(LiveServerTestCase):
 		#Strona została ponownie uaktualniona i teraz wyświetla dwa elelementy na liście rzeczy do zrobienia.
 		self.check_for_row_in_list_table('1: Kupić pawie pióra')
 		self.check_for_row_in_list_table('2: Użyć pawich piór do zrobienia przynęty')
-		#Edyta była ciekwawa, czy witryna zapamięta jej listę. Zwróciła uwagę na wygenerowany dla niej unikatowy adres URL, obok którego znajduje się pewien tekst z wyjaśnieniem
+		
+		#Teraz nowy użytkownik Franek zaczyna korzystać z witryny.
+		##Używamy nowej sesji przeglądarki internetowej, aby mieć pewność, że żadne
+		##informacje dotyczące Edyty nie zostaną ujawnione, na przykład przez cookies.
+		self.browser.quit()
+		self.browser = webdriver.Chrome()
+
+		#Franek odwiedza stronę główną.
+		#Nie znajduje żadnych śladów listy Edyty.
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_ty_tag_name('body').text
+		self.assertNotIn('Kupić pawie pióra', page_text)
+		self.assertNotIn('zrobienie przynęty', page_text)
+
+		#Franek tworzy nową listę, wprowadzając nowy element.
+		#Jego lista jest mniej interesująca niż Edyty...
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Kupić mleko')
+		inputbox.send_keys(Keys.ENTER)
+
+		#Franek otrzymuje unikatowy adres URL prowadzący do listy.
+		francis_list_url = self.browser.current_url
+		self.assertRegex(francis_list_url, '/lists/.+')
+		sefl.assertNotEqual(francis_list_url, edith_list_url)
+
+		#Ponownie nie ma żadnego śladu po liście Edyty.
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Kupić pawie pióra', page_text)
+		self.assertIn('Kupić mleko', page_text)
+
+		#Usatysfakcjonowani, oboje kładą się spać.
+		
 		self.fail('Zakończenie testu!')
 
 		#Przechodzi pod podany adres URL i widzi wyświetloną swoją listę rzeczy do zrobienia.

@@ -2,10 +2,25 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 import time
+import sys
 #from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 class NewVisitorTest(StaticLiveServerTestCase):
+
+	@classmethod
+	def setUpClass(cls):
+		for arg in sys.argv:
+			if 'liveserver' in arg:
+				cls.server_url = 'http://' +arg.split('=')[1]
+				return
+		super().setUpClass()
+		cls.server_url = cls.live_server_url
+
+	@classmethod
+	def tearDownClass(cls):
+		if cls.server_url ==cls.live_server_url:
+			super().tearDownClass()
 
 	def setUp(self):
 		self.browser = webdriver.Chrome()
@@ -23,7 +38,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 	def test_can_start_a_list_and_retrive_it_later(self):
 		#Edyta dowiedziała się o nowej, wspaniałej aplikacji w postaci listy rzeczy do zrobienia.
 		#Postanowiła więc przejść na stronę główną tej aplikacji.
-		self.browser.get(self.live_server_url)
+		self.browser.get(self.server_url)
 
 		#Zwróciła uwagę, że tytuł strony i nagłówek zawierają słowo Listy.
 		self.assertIn('Listy', self.browser.title)
@@ -65,7 +80,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
 		#Franek odwiedza stronę główną.
 		#Nie znajduje żadnych śladów listy Edyty.
-		self.browser.get(self.live_server_url)
+		self.browser.get(self.server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Kupić pawie pióra', page_text)
 		self.assertNotIn('zrobienie przynęty', page_text)
@@ -95,7 +110,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
 	def test_layout_and_styling(self):
 		#Edyta przeszła na stronę główną
-		self.browser.get(self.live_server_url)
+		self.browser.get(self.server_url)
 		self.browser.set_window_size(1024, 768)
 		
 		#Zauważyła, że pole tekstowe zostało elegancko wyśrodkowane.

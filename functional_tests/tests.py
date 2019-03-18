@@ -17,10 +17,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
 	#	super().setUpClass()
 		cls.server_url = 'http://rafalpiotrowski.com.pl'
 
-	#@classmethod
-	#def tearDownClass(cls):
+	@classmethod
+	def tearDownClass(cls):
 	#	if cls.server_url ==cls.live_server_url:
-	#		super().tearDownClass()
+			super().tearDownClass()
 
 	def setUp(self):
 		self.browser = webdriver.Chrome()
@@ -130,4 +130,4 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		delta=20
 		)
 
-		self.fail('Zakończenie testu!')
+#		self.fail('Zakończenie testu!')

@@ -1,0 +1,16 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=rafal
+Group=www-data
+WorkingDirectory=/home/rafal/sites/rafalpiotrowski.com.pl/source
+ExecStart=/home/rafal/sites/rafalpiotrowski.com.pl/virtualenv/bin/gunicorn \
+          --access-logfile - \
+          --bind unix:/run/gunicorn.sock \
+          superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

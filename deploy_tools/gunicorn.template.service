@@ -6,8 +6,8 @@ After=network.target
 [Service]
 User=rafal
 Group=www-data
-WorkingDirectory=/home/rafal/sites/rafalpiotrowski.com.pl/source
-ExecStart=/home/rafal/sites/rafalpiotrowski.com.pl/virtualenv/bin/gunicorn \
+WorkingDirectory=/home/rafal/sites/SITENAME/source
+ExecStart=/home/rafal/sites/SITENAME/virtualenv/bin/gunicorn \
           --access-logfile - \
           --bind unix:/run/gunicorn.sock \
           superlists.wsgi:application

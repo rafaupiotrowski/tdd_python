@@ -4,7 +4,7 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
-User=rafal
+User=ubuntu
 Group=www-data
 WorkingDirectory=/home/rafal/sites/SITENAME/source
 ExecStart=/home/rafal/sites/SITENAME/virtualenv/bin/gunicorn \

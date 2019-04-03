@@ -14,12 +14,13 @@ Na przykład w systemie Ubuntu należy wydać polecenia:
 
 ##Konfiguracja wirtualnych hostów w nginx
 
-*Zobacz plik nginx.template.conf
+*Zobacz plik nginx.sites-available.template
 *SITENAME należy zastąpić odpowiednią nazwą, na przykład rafalpiotrowski.com.pl
 
 ##Zadanie systemd
 
 * Zobacz pliki gunicorn.template.socket i gunicorn.template.service
+* Uruchomienie powyższych i ustawienie autostartu
 
 ## Struktura katalogów
 Przyjmujemy założenie o istnieniu konta użytkownika w postaci /home/użytkownik.

@@ -3,10 +3,11 @@ from selenium.webdriver.common.keys import Keys
 import unittest
 import time
 import sys
-#from django.test import LiveServerTestCase
+from unittest import skip
+from django.test import LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
-class NewVisitorTest(StaticLiveServerTestCase):
+class NewVisitorTest(LiveServerTestCase):
 
 	@classmethod
 	def setUpClass(cls):
@@ -14,13 +15,13 @@ class NewVisitorTest(StaticLiveServerTestCase):
 	#		if 'liveserver' in arg:
 	#			cls.server_url = 'http://' +arg.split('=')[1]
 	#			return
-	#	super().setUpClass()
+		super().setUpClass()
 		cls.server_url = 'http://rafalpiotrowski.com.pl'
 
 	@classmethod
 	def tearDownClass(cls):
 	#	if cls.server_url ==cls.live_server_url:
-			super().tearDownClass()
+		super().tearDownClass()
 
 	def setUp(self):
 		self.browser = webdriver.Chrome()
@@ -129,5 +130,21 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		512,
 		delta=20
 		)
+	@skip	
+	def test_cannot_add_empty_list_items(self):
+		#Edyta przeszła na stronę główną i przypadkowo spróbowała
+		# utworzyć pusty element na liście. Nacisnęła enter w pustym polu
+
+		#Po odświeżeniu strony głównej zobaczyła komunikat błędu
+
+		#Spróbowała ponownie, wpisując tekst, i wszystko zadziałało
+
+		#Przekornie drugi raz spróbowała utworzyć pusty element na liście
+
+		#Na stronei listy otzymała komuninkat jak wcześniej
+
+		#Element mogła poprawić, wpisując w nim dowolny tekst.
+		self.fail('Napisz mnie')
 
 #		self.fail('Zakończenie testu!')
+

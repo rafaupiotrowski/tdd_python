@@ -35,7 +35,7 @@ class ItemValidationTest(FunctionalTest):
         self.assertEqual(error.text, 'Element nie może być pusty')
 
 		#Element mogła poprawić, wpisując w nim dowolny tekst.
-        self.browser.find_element_by_id('id_new_item').send_keys('Kupić mleko\n')
+        self.browser.find_element_by_id('id_new_item').send_keys('Zrobić herbatę\n')
         self.check_for_row_in_list_table('1: Kupić mleko')
         self.check_for_row_in_list_table('2: Zrobić herbatę')
 

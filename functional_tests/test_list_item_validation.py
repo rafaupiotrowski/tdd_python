@@ -19,7 +19,7 @@ class ItemValidationTest(FunctionalTest):
         self.browser.find_element_by_id('id_new_item').send_keys('\n')
 
         #Po odświeżeniu strony głównej zobaczyła komunikat błędu
-        error = self.browser.find_element_by_css_selector('.haserror')
+        error = self.browser.find_element_by_css_selector('.has-error')
         self.assertEqual(error.text, 'Element nie może być pusty')
 
 		#Spróbowała ponownie, wpisując tekst, i wszystko zadziałało
@@ -36,7 +36,6 @@ class ItemValidationTest(FunctionalTest):
 
 		#Element mogła poprawić, wpisując w nim dowolny tekst.
         self.browser.find_element_by_id('id_new_item').send_keys('Kupić mleko\n')
-        self.fail('Napisz mnie')
         self.check_for_row_in_list_table('1: Kupić mleko')
         self.check_for_row_in_list_table('2: Zrobić herbatę')
 

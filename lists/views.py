@@ -32,7 +32,7 @@ def new_list(request):
 		list_.delete()
 		error = 'Element nie może być pusty'
 		return render(request, 'home.html', {'error': error})
-	return redirect('/lists/%d/' % (list_.id))
+	return redirect('view_list', list_.id)
 
 def add_item(request, list_id):
 	list_ = List.objects.get(id=list_id)

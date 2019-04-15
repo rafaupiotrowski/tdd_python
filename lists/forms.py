@@ -11,9 +11,14 @@ class ItemForm(forms.models.ModelForm):
         widgets = {
             'text': forms.fields.TextInput(attrs={
                 'placeholder': 'Wpisz rzecz do zrobienia',
-                'class': 'form-control input-lg'
+                'class': 'form-control input-lg',
+                'blank': False
             })
         }
         error_messages = {
             'text': {'required': EMPTY_LIST_ERROR}
         }
+        
+    def save(self, for_list):
+        self.instance.list = for_list
+        return super().save()

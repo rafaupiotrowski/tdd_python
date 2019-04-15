@@ -16,7 +16,7 @@ class ItemValidationTest(FunctionalTest):
         #Edyta przeszła na stronę główną i przypadkowo spróbowała
         # utworzyć pusty element na liście. Nacisnęła enter w pustym polu
         self.browser.get(self.server_url)
-        self.get_item_input_box().send_keys('\n')
+        self.get_item_input_box().send_keys(' \n')
 
         #Po odświeżeniu strony głównej zobaczyła komunikat błędu
         error = self.browser.find_element_by_css_selector('.has-error')
@@ -27,7 +27,7 @@ class ItemValidationTest(FunctionalTest):
         self.check_for_row_in_list_table('1: Kupić mleko')
 
 		#Przekornie drugi raz spróbowała utworzyć pusty element na liście
-        self.get_item_input_box().send_keys('\n')
+        self.get_item_input_box().send_keys(' \n')
 
 		#Na stronie listy otzymała komuninkat jak wcześniej
         self.check_for_row_in_list_table('1: Kupić mleko')

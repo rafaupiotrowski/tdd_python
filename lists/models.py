@@ -8,5 +8,12 @@ class List(models.Model):
         return reverse('view_list', args=[self.id])
 
 class Item(models.Model):
-    text =models.TextField(blank = False)#default='')
+    text =models.TextField(blank = False,default='')
     list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
+    
+    def __str__(self):
+            return self.text
+    
+    class Meta:
+        unique_together = ('list', 'text')
+        

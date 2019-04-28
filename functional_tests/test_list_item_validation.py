@@ -20,7 +20,7 @@ class ItemValidationTest(FunctionalTest):
 
         #Po odświeżeniu strony głównej zobaczyła komunikat błędu
         error = self.browser.find_element_by_css_selector('.has-error')
-        self.assertEqual(error.text, 'Element listy nie może być pusty')
+        self.assertEqual(error.text, 'Element listy nie może być pusty.')
 
 		#Spróbowała ponownie, wpisując tekst, i wszystko zadziałało
         self.get_item_input_box().send_keys('Kupić mleko\n')

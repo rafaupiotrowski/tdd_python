@@ -2,8 +2,8 @@ from django import forms
 from lists.models import Item
 from django.core.exceptions import ValidationError
 
-EMPTY_LIST_ERROR = 'Element listy nie może być pusty'
-DUPLICATE_ITEM_ERROR = 'Podany element już istnieje na liście'
+EMPTY_LIST_ERROR = 'Element listy nie może być pusty.'
+DUPLICATE_ITEM_ERROR = 'Podany element już istnieje na liście.'
 
 class ItemForm(forms.models.ModelForm):
 

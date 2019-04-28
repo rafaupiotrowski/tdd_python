@@ -1,7 +1,9 @@
 from django.test import TestCase
 from lists.forms import(
-    ItemForm, EMPTY_LIST_ERROR,
-    ExistingListItemForm, ItemForm
+    DUPLICATE_ITEM_ERROR,
+    EMPTY_LIST_ERROR,
+    ExistingListItemForm,
+    ItemForm
 ) 
 from lists.models import Item, List
 
@@ -37,13 +39,13 @@ class ExistingListItemFormTest(TestCase):
         
     def test_form_validation_for_blank_items(self):
         list_ = List.objects.create()
-        form = ExistingListItemForm(for_list=list, data={'text': ''})
+        form = ExistingListItemForm(for_list=list_, data={'text': ''})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['text'], [EMPTY_LIST_ERROR])
         
     def test_form_validation_for_duplicate_items(self):
         list_ = List.objects.create()
         Item.objects.create(list=list_, text='żadnych powtorzeń!')
-        form = ExistingListItemForm(for_list=list_, data={'text:' 'żadnych powtorzen!'})
+        form = ExistingListItemForm(for_list=list_, data={'text': 'żadnych powtorzeń!'})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['text'], [DUPLICATE_ITEM_ERROR])

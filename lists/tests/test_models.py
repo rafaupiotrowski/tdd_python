@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
+
 from lists.views import home_page
 
 class ItemModelTest(TestCase):

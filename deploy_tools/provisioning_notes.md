@@ -33,4 +33,4 @@ Przyjmujemy założenie o istnieniu konta użytkownika w postaci /home/użytkown
 			static
 			virtualenv
 
-
+## Uruchomienie skryptu fabfile: fab deploy.

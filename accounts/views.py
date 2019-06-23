@@ -18,7 +18,7 @@ def send_login_email(request):
     send_mail(
         'Your login link for Superlists',
         f'Use this link to log in:\n\n{url}',
-        'noreply@superlists',
+        'kozatdd@gmail.com',
         [email],
     )
     return render(request, 'login_email_sent.html')
@@ -26,8 +26,10 @@ def send_login_email(request):
 def login(request):
     print('login view', file = sys.stderr)
     uid = request.GET.get('uid')
-    user = authenticate(uid=uid)
+    user = authenticate(request, uid=uid)
+    print(user, file = sys.stderr)
     if user is not None:
+        print('auth_login', file = sys.stderr)
         auth_login(request, user)
     return redirect('/')
 

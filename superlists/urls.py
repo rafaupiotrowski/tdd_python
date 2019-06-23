@@ -19,7 +19,7 @@ from lists import views
 from accounts import urls as accounts_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+#    path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
 	path('', views.home_page, name='home'),
 	path('lists/', include('lists.urls')),

@@ -12,7 +12,7 @@ class ItemForm(forms.models.ModelForm):
         fields = ('text',)
         widgets = {
             'text': forms.fields.TextInput(attrs={
-                'placeholder': 'teścik',
+                'placeholder': 'Wpisz rzecz do zrobienia',
                 'class': 'form-control input-lg',
             })
         }

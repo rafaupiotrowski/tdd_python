@@ -5,7 +5,7 @@ import re
 from .base import FunctionalTest
 
 TEST_EMAIL = 'kozatdd@gmail.com'
-SUBJECT = 'Your login link for Superlists'
+SUBJECT = 'Your login link for superlists'
 
 class LoginTest(FunctionalTest):
     def test_can_get_email_link_to_log_in(self):
@@ -39,7 +39,7 @@ class LoginTest(FunctionalTest):
         
         #jest zalogowana!
         self.wait_for(
-            lambda: self.browser.find_element_by_link_text('Log out')
+            lambda: self.browser.find_element_by_link_text('Wyloguj')
         )
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertIn(TEST_EMAIL, navbar.text)

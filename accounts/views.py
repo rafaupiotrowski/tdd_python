@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.contrib import messages, auth
 from accounts.models import Token
 from django.urls import reverse
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -27,9 +28,13 @@ def send_login_email(request):
 
 def login(request):
     print('Widok login')
-    user = auth.authenticate(uid=request.GET.get('token'))
+    user = auth.authenticate(request, uid=request.GET.get('token'))
     print(user)
     if user:
         print('Login jest user')
         auth.login(request, user)
+    return redirect('/')
+
+def logout_view(request):
+    logout(request)
     return redirect('/')

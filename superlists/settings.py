@@ -129,6 +129,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'kozatdd@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('TDD_EMAIL_PASSWORD')
+EMAIL_HOST_PASSWORD =os.environ.get('TDD_EMAIL_PASSWORD')
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True

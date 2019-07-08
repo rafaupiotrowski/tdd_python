@@ -12,7 +12,7 @@ class FunctionalTest(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.server_url = 'http://rafalpiotrowski.com.pl'
+        cls.server_url = 'http://localhost:8000'  #'http://rafalpiotrowski.com.pl'
 
     @classmethod
     def tearDownClass(cls):

@@ -1,29 +1,63 @@
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import sys
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+#from django.test import LiveServerTestCase
 import time
 from selenium.webdriver.common.keys import Keys
+import os
+from datetime import datetime
+import unittest
+import inspect
+
+SCREEN_DUMP_LOCATION = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), 'screendumps'
+)
 
 MAX_WAIT = 10
 
-class FunctionalTest(LiveServerTestCase):
+class FunctionalTest(StaticLiveServerTestCase):
+    
+    def _get_filename(self):
+        timestamp = datetime.now().isoformat().replace(':', '.')[:19]
+        return '%s/%s.%s-window%s-%s' % (
+        SCREEN_DUMP_LOCATION,
+            self.__class__.__name__,
+            self._testMethodName,
+            self._windowid,
+            timestamp,
+        )
+    
+    def take_screenshot(self):
+        filename = self._get_filename()+ '.png'
+        print('screenshoting to', filename)
+        self.browser.get_screenshot_as_file(filename)
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.server_url = 'http://localhost:8000'  #'http://rafalpiotrowski.com.pl'
-
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-
+    def dump_html(self):
+        filename = self._get_filename() + '.html'
+        print('dumping page HTML to ', filename)
+        with open(filename, 'w') as f:
+            f.write(self.browser.page_source)
+        
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        if self._test_has_failed():
+            if not os.path.exists(SCREEN_DUMP_LOCATION):
+                os.makedirs(SCREEN_DUMP_LOCATION)
+            for ix, handle in enumerate(self.browser.window_handles):
+                self._windowid = ix
+                self.browser.switch_to_window(handle)
+                self.take_screenshot()
+                self.dump_html
         self.browser.quit()
+        super().tearDown()
+        
+    def _test_has_failed(self):
+        # slightly obscure but couldn't find a better way!
+        return any(error for (method, error) in self._outcome.errors)
 
     def check_for_row_in_list_table(self, row_text):
         table = self.browser.find_element_by_id('id_list_table')

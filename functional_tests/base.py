@@ -42,6 +42,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
+        self.server_url = 'http://localhost:8000' 
 
     def tearDown(self):
         if self._test_has_failed():

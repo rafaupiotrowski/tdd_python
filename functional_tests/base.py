@@ -9,6 +9,7 @@ from datetime import datetime
 import unittest
 import inspect
 
+
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )

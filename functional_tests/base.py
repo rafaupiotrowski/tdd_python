@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 import sys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-#from django.test import LiveServerTestCase
 import time
 from selenium.webdriver.common.keys import Keys
 import os
@@ -42,7 +41,6 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
-    #    self.server_url = 'http://localhost:8000' 
 
     def tearDown(self):
         if self._test_has_failed():
@@ -57,7 +55,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         super().tearDown()
         
     def _test_has_failed(self):
-        # slightly obscure but couldn't find a better way!
         return any(error for (method, error) in self._outcome.errors)
 
     def check_for_row_in_list_table(self, row_text):

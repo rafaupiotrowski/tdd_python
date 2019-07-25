@@ -14,7 +14,7 @@ SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )
 
-MAX_WAIT = 10
+MAX_WAIT = 20
 
 class FunctionalTest(StaticLiveServerTestCase):
     
@@ -42,7 +42,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
-        self.server_url = 'http://localhost:8000' 
+    #    self.server_url = 'http://localhost:8000' 
 
     def tearDown(self):
         if self._test_has_failed():

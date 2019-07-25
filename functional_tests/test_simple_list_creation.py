@@ -7,7 +7,7 @@ class NewVisitorTest(FunctionalTest):
 	def test_can_start_a_list_and_retrive_it_later(self):
 		#Edyta dowiedziała się o nowej, wspaniałej aplikacji w postaci listy rzeczy do zrobienia.
 		#Postanowiła więc przejść na stronę główną tej aplikacji.
-		self.browser.get(self.server_url)
+		self.browser.get(self.live_server_url)
 
 		#Zwróciła uwagę, że tytuł strony i nagłówek zawierają słowo Listy.
 		self.assertIn('Listy', self.browser.title)
@@ -49,7 +49,7 @@ class NewVisitorTest(FunctionalTest):
 
 		#Franek odwiedza stronę główną.
 		#Nie znajduje żadnych śladów listy Edyty.
-		self.browser.get(self.server_url)
+		self.browser.get(self.live_server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Kupić pawie pióra', page_text)
 		self.assertNotIn('zrobienie przynęty', page_text)
